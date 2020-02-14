@@ -1,0 +1,16 @@
+<header>
+  <nav class="navbar navbar-expand navbar-light">
+    <%= link_to "町の本屋さん", root_path, class: 'navbar-brand' %>
+    <div class="collapse navbar-collapse justify-content-end">
+      <ul class="navbar-nav">
+        <% if user_signed_in? %>
+            <%= link_to 'アカウント編集', edit_user_registration_path, class: 'nav-link' %>
+            <%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: 'nav-link' %>
+        <% else %>
+            <%= link_to "アカウント登録", new_user_registration_path, class: 'nav-link' %>
+            <%= link_to "ログイン", new_user_session_path, class: 'nav-link' %>
+        <% end %>
+      </ul>
+    </div>
+  </nav>
+</header>
