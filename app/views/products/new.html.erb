@@ -1,0 +1,33 @@
+<h2>商品登録</h2>
+
+<ul>
+  <%= form_with(model: @product, local: true) do |f| %>
+    <div>
+      <%= f.label :name, "タイトル" %>
+      <%= f.text_field :name, class:'form-control' %>
+    </div>
+    <div>
+      <%= f.label :author, "著者" %>
+      <%= f.text_field :author, class:'form-control' %>
+    </div>
+    <div>
+      <%= f.label :description, "内容" %>
+      <%= f.text_area :description, class:'form-control' %>
+    </div>
+    <div>
+      <%= f.label :price, "価格" %>
+      <%= f.number_field :price, class:'form-control' %>
+    </div>
+    <div>
+      <%= f.label :num, "数量" %>
+      <%= f.number_field :num, class:'form-control' %>
+    </div>
+    <div>
+      <%= f.label :img, "画像" %>
+      <%= f.file_field :img %>
+    </div>
+    <div>
+      <%= f.submit "登録" %>
+    </div>
+  <% end %>
+</ul>
