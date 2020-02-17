@@ -18,4 +18,5 @@ class User < ApplicationRecord
       where(conditions).first
     end 
   end
+  has_one :cart, dependent: :destroy
 end

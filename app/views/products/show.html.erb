@@ -1,24 +1,32 @@
 
 <div class="bg-gray m-1" >
-  <div class="p-2">
-    <% if @product.img? %>
-      <%= image_tag @product.img.url, alt: "書籍の画像です。", :size =>'300x180' %>
-    <% else %>
-      <%= image_tag "no-img.png", alt: "画像が登録されていません。", :size =>'300x180' %>
-    <% end %>
-  </div>
-  <div>タイトル: <%= @product.name %></div>
-  <div>著者: <%= @product.author %></div>
-  <div>価格: <%= @product.price %></div>
-  <div>在庫数: <%= @product.num %></div>
-  <div>説明: <%= @product.description %></div>
+  <section>
+    <div class="p-2">
+      <% if @product.img? %>
+        <%= image_tag @product.img.url, alt: "書籍の画像です。", :size =>'300x180' %>
+      <% else %>
+        <%= image_tag "no-img.png", alt: "画像が登録されていません。", :size =>'300x180' %>
+      <% end %>
+    </div>
+    <div>タイトル: <%= @product.name %></div>
+    <div>著者: <%= @product.author %></div>
+    <div>価格: ¥<%= @product.price %></div>
+    <div>在庫数: <%= @product.num %></div>
+    <div>説明: <%= @product.description %></div>
+    <%= link_to "編集", edit_product_path(@product), class: "btn btn-edit"%>
+    <%= link_to '削除', product_path(@product), class: "btn btn-delete", method: :delete, data: { confirm: "削除してもよろしいですか？"}  %>
+  </section>
 </div>
-
-<%= link_to "編集", edit_product_path(@product), class: "btn"%>
-<%= link_to '削除', product_path(@product), class: "btn", method: :delete, data: { confirm: "削除してもよろしいですか？"}  %>
 
 <style>
 .bg-gray{
   background-color: #ededed80;
+}
+.btn-edit{
+  background-color: #00000021;
+}
+.btn-delete{
+  background-color: #ff000082;
+  color: #fff
 }
 </style>

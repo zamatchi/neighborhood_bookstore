@@ -1,8 +1,6 @@
 class ProductsController < ApplicationController
   def show
-    # @product = Product.find(params[:id])
     @product = Product.find_by_hashid(params[:id])
-    binding.pry
   end
 
   def new
