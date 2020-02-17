@@ -1,3 +1,9 @@
-<% @cart_items.each do |cart_item| %>
-  <%= cart_item.num %>
+<% @cart_items.zip(@order_nums) do |cart_item, order_num| %>
+  <div>
+    商品名: <%= cart_item.name %>
+    著者: <%= cart_item.author %>
+    価格: <%= cart_item.price %>
+    購入数: <%= order_num.quantity %>
+
+  </div>
 <% end %>
