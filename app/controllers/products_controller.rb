@@ -1,7 +1,6 @@
 class ProductsController < ApplicationController
   def show
     @product = Product.find(params[:id])
-    # @product = Product.find_by_hashid(params[:id])
     if current_user.cart.blank?
       cart = current_user.build_cart
       cart.save
