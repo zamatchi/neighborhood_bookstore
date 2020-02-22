@@ -7,6 +7,7 @@ class User < ApplicationRecord
 
   validates :idname, presence: true, uniqueness: true
   validates :name, presence: true
+  has_one :cart, dependent: :destroy
 
   # idnameを仕様してログインするようオーバーライド
   def self.find_first_by_auth_conditions(warden_conditions)
@@ -18,5 +19,18 @@ class User < ApplicationRecord
       where(conditions).first
     end 
   end
-  has_one :cart, dependent: :destroy
+
+  # ユーザー編集時にパスワード確認をしなくてもいいようにオーバーライド
+  def update_without_current_password(params, *options)
+    params.delete(:current_password)
+    
+    if params[:password].blank? && params[:password_confirmation].blank?
+  +   params.delete(:password)
+      params.delete(:password_confirmation)
+    end
+  
+    result = update_attributes(params, *options)
+    clean_up_passwords
+    result
+  end
 end

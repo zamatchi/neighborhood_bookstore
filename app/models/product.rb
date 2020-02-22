@@ -1,5 +1,5 @@
 class Product < ApplicationRecord
-  mount_uploader :img, ImgUploader
   include Hashid::Rails
-  # has_many :cart_products, dependent: :destroy
+  mount_uploader :img, ImgUploader
+  has_many :cart_products, dependent: :destroy
 end

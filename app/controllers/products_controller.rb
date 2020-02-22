@@ -1,6 +1,11 @@
 class ProductsController < ApplicationController
   def show
-    @product = Product.find_by_hashid(params[:id])
+    @product = Product.find(params[:id])
+    # @product = Product.find_by_hashid(params[:id])
+    if current_user.cart.blank?
+      cart = current_user.build_cart
+      cart.save
+    end
   end
 
   def new
@@ -39,10 +44,10 @@ class ProductsController < ApplicationController
     @product = Product.find(params[:id])
     if @product.destroy
       flash[:success] = "削除しました。"
-      redirect_to products_path
+      redirect_to root_path
     else
       flash.now[:danger] = "削除に失敗しました。"
-      redirect_to @product
+      render :show
     end
   end
 

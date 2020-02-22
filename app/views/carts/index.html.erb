@@ -1,9 +1,15 @@
-<% @cart_items.zip(@order_nums) do |cart_item, order_num| %>
-  <div>
-    商品名: <%= cart_item.name %>
-    著者: <%= cart_item.author %>
-    価格: <%= cart_item.price %>
-    購入数: <%= order_num.quantity %>
-
-  </div>
-<% end %>
+<div>
+  <% @cart_items.zip(@order_nums) do |cart_item, order_num| %>
+    <section>
+      <div>タイトル: <%= cart_item.name %></div>
+      <div>著者: <%= cart_item.author %></div>
+      <div>価格: ¥<%= cart_item.price %></div>
+      <div>購入数: <%= order_num.quantity %></div>
+      <div>
+        <%= link_to "変更する", edit_cart_path(cart_item), class: "btn btn-info btn-sm" %>
+        <%= link_to "削除する", cart_path(cart_item), class: "btn btn-danger btn-sm", method: :delete %>
+      </div>
+    </section>
+  <% end %>
+</div>
+<div class="btn btn-success mt-3">購入する</div>
