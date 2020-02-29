@@ -1,6 +1,15 @@
 Rails.application.routes.draw do
-  devise_for :users
   root "homes#index"
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  # config.action_mailer.default_url_options = { host: 'db', port: 3000 }
+  devise_for :users, controllers: {
+    sessions: 'users/sessions',
+    registrations: 'users/registrations'
+  }
+  # get 'carts/index'
+  post '/carts/add', to: 'carts#add'
+  resources :carts, only: [:index, :edit, :update, :destroy]
+
+  resources :products, only: [:show, :new, :create, :edit, :update, :destroy]
+  
+  resource :charge, only: [:create]
+  
 end

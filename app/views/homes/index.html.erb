@@ -1,4 +1,24 @@
-<h1>Homes#index</h1>
-<p>Find me in app/views/homes/index.html.erb</p>
+<%= image_tag "book.jpg", alt: "本の画像です。", size: '1000x400' %>
 
-<%= render 'shared/flash_messages' %>
+<section>
+  <% @products.each do |product| %>
+    <div class="d-inline-block bg-gray m-1" >
+      <div class="p-2">
+        <% if product.img? %>
+          <%= image_tag product.img.url, alt: "書籍の画像です。", :size =>'300x180' %>
+        <% else %>
+          <%= image_tag "no-img.png", alt: "画像が登録されていません。", :size =>'300x180' %>
+        <% end %>
+      </div>
+      <div>タイトル: <%= link_to product.name, product_path(product) %></div>
+      <div>著者: <%= product.author %></div>
+    </div>
+  <% end %>
+</section>
+
+
+<style>
+.bg-gray{
+  background-color: #ededed80;
+}
+</style>
