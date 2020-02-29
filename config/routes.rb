@@ -4,7 +4,7 @@ Rails.application.routes.draw do
     sessions: 'users/sessions',
     registrations: 'users/registrations'
   }
-  # get 'carts/index'
+  get '/purchase_history', to: 'purchase_histories#index'
   post '/carts/add', to: 'carts#add'
   resources :carts, only: [:index, :edit, :update, :destroy]
 

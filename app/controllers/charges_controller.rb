@@ -35,7 +35,7 @@ class ChargesController < ApplicationController
       unless current_user.purchase_history
         current_user.purchase_history = current_user.build_purchase_history
       end
-
+      
       purchase_all_info.each do |purchase_info|        
         purchase_history = current_user.purchase_history.purchase_history_products.create!(user_name: current_user.name, product_id: purchase_info[0], product_name: purchase_info[1], quantity: purchase_info[2], price: purchase_info[3])
       end
