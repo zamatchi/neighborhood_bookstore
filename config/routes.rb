@@ -10,4 +10,6 @@ Rails.application.routes.draw do
 
   resources :products, only: [:show, :new, :create, :edit, :update, :destroy]
   
+  resource :charge, only: [:create]
+  
 end

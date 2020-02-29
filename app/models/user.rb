@@ -8,6 +8,7 @@ class User < ApplicationRecord
   validates :idname, presence: true, uniqueness: true
   validates :name, presence: true
   has_one :cart, dependent: :destroy
+  has_one :purchase_history, dependent: :destroy
 
   # idnameを仕様してログインするようオーバーライド
   def self.find_first_by_auth_conditions(warden_conditions)

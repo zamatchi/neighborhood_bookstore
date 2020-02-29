@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_17_045045) do
+ActiveRecord::Schema.define(version: 2020_02_29_073754) do
 
   create_table "cart_products", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "quantity"
@@ -40,6 +40,26 @@ ActiveRecord::Schema.define(version: 2020_02_17_045045) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "purchase_histories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_purchase_histories_on_user_id"
+  end
+
+  create_table "purchase_history_products", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "user_name"
+    t.string "product_name"
+    t.integer "quantity"
+    t.integer "price"
+    t.bigint "product_id", null: false
+    t.bigint "purchase_history_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_purchase_history_products_on_product_id"
+    t.index ["purchase_history_id"], name: "index_purchase_history_products_on_purchase_history_id"
+  end
+
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -58,4 +78,7 @@ ActiveRecord::Schema.define(version: 2020_02_17_045045) do
   add_foreign_key "cart_products", "carts"
   add_foreign_key "cart_products", "products"
   add_foreign_key "carts", "users"
+  add_foreign_key "purchase_histories", "users"
+  add_foreign_key "purchase_history_products", "products"
+  add_foreign_key "purchase_history_products", "purchase_histories"
 end
