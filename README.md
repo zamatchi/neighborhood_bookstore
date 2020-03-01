@@ -1,24 +1,17 @@
-# README
+# アプリの概要
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+###現在作成中
 
-Things you may want to cover:
+* Ruby version 2.5
 
-* Ruby version
+* Rails version 5.2
 
-* System dependencies
+* Dockerを用いたRails環境構築
 
-* Configuration
+* Deviseを用いたログイン機能
 
-* Database creation
+* hashid-railsを用いてURLをハッシュ化
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
+* stripeを用いた決済システム
 
 * ...
