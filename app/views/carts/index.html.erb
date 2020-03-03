@@ -13,13 +13,18 @@
   <% end %>
 </ul>
 <div>合計金額: <%= @total_price %> 円</div>
-<div class="btn btn-success mt-3">購入する</div>
+<%# <div class="btn btn-success mt-3">購入する</div> %>
 
 
 <div>
   <%= form_with(url: :charge, method: :post) do |f| %>
-    <%= f.hidden_field :product_ids, :value => @cart_items.ids.join(",") %>
+    <div>
+      <%= f.label :delivery_user, "配達者(ユーザーID)" %><br />
+      <%= f.text_field :delivery_user %>
+    </div>
 
+    <%= f.hidden_field :product_ids, :value => @cart_items.ids.join(",") %>
+    
     <script
       src="https://checkout.stripe.com/checkout.js"
       class="stripe-button"

@@ -2,6 +2,7 @@
 
 <ul>
   <%= form_with(model: @product, local: true) do |f| %>
+    <%= render "layouts/error_messages", model: f.object %>
     <div>
       <%= f.label :name, "タイトル" %>
       <%= f.text_field :name, class:'form-control' %>

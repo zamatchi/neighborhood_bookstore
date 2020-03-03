@@ -78,3 +78,7 @@ gem 'carrierwave'
 gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'master'
 gem "hashid-rails", "~> 1.0"
 gem 'stripe'
+
+group :production do
+  gem 'pg', '>= 0.18', '< 2.0'
+end

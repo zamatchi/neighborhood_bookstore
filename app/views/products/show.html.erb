@@ -15,9 +15,10 @@
 
     <div>
       <%= form_with(model: current_user.cart.cart_products.build, url: carts_add_path, local: true ) do |f| %>
+        <%= render "layouts/error_messages", model: f.object %>
         <div>
           <%= f.label :quantity, "購入数" %>
-          <%= f.number_field :quantity %>
+          <%= f.number_field :quantity, :value => 1 %>
         </div>
         <%= f.hidden_field :product_id, :value => @product.id %>
         <%= f.hidden_field :product_num, :value => @product.num %>
