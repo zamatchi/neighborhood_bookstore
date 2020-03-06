@@ -1,5 +1,6 @@
 class CartsController < ApplicationController
   before_action :authenticate_user!
+  before_action :exist_cart, only:[:index]
 
   def index
     @cart_items = current_user.cart.products
@@ -63,5 +64,15 @@ class CartsController < ApplicationController
     cart_product = current_user.cart.cart_products.find_by(product_id: @product.id)
     cart_product.destroy
     redirect_to carts_path
+  end
+
+  private
+
+  def exist_cart
+    unless current_user.cart
+      @products = Product.all
+      flash[:success] = "カートはからの状態です。"
+      redirect_to root_path
+    end
   end
 end
