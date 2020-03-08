@@ -7,6 +7,9 @@
 #   Product.create!(name: name, author: author, description: description, price: price, num: num)
 # end
 
+
+puts "---開始---"
+
 User.create!(
   name: "管理ユーザー",
   email: ENV['ADMIN_EMAIL'],
