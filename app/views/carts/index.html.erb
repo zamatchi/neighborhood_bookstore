@@ -1,40 +1,51 @@
-<ul>
-  <% @cart_items.zip(@order_nums) do |cart_item, order_num| %>
-    <li>
-      <div>タイトル: <%= cart_item.name %></div>
-      <div>著者: <%= cart_item.author %></div>
-      <div>価格: ¥<%= cart_item.price %></div>
-      <div>購入数: <%= order_num.quantity %></div>
-      <div>
-        <%= link_to "変更する", edit_cart_path(cart_item), class: "btn btn-info btn-sm" %>
-        <%= link_to "削除する", cart_path(cart_item), class: "btn btn-danger btn-sm", method: :delete, data: { confirm: 'この商品を削除してもよろしいですか？' } %>
-      </div>
-    </li>
-  <% end %>
-</ul>
-<div>合計金額: <%= @total_price %> 円</div>
-<%# <div class="btn btn-success mt-3">購入する</div> %>
+<div class="col-md-8 offset-md-2">
+  <h2 class="text-center">カート</h2>
 
+  <% if @cart_items.blank? %>
+    <p class="text-center mt-5">カートに商品はありません。</p>
+  <% else %>
 
-<div>
-  <%= form_with(url: :charge, method: :post) do |f| %>
+    <table class= "table">
+      <% @cart_items.zip(@order_nums) do |cart_item, order_num| %>
+        <tr>
+          <td>タイトル: <%= cart_item.name %></td>
+          <td>著者: <%= cart_item.author %></td>
+          <td>価格: ¥<%= cart_item.price %></td>
+          <td>購入数: <%= order_num.quantity %></td>
+          <td>
+            <%= link_to "変更", edit_cart_path(cart_item), class: "btn btn-edit btn-sm" %>
+            <%= link_to "削除", cart_path(cart_item), class: "btn btn-delete btn-sm", method: :delete, data: { confirm: 'この商品を削除してもよろしいですか？' } %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+
+    <div class="text-right">合計金額: <%= @total_price %> 円</div>
+
     <div>
-      <%= f.label :delivery_user, "配達者(ユーザーID)" %><br />
-      <%= f.text_field :delivery_user %>
-    </div>
+      <%= form_with(url: :charge, method: :post) do |f| %>
+        <div class="form-group col-md-6">
+          <%= f.label :delivery_user, "配達者(ユーザーID)" %>
+          <%= f.text_field :delivery_user, class: "form-control" %>
+        </div>
 
-    <%= f.hidden_field :product_ids, :value => @cart_items.ids.join(",") %>
-    
-    <script
-      src="https://checkout.stripe.com/checkout.js"
-      class="stripe-button"
-      data-key=<%= ENV['STRIPE_API_KEY'] %>
-      data-amount=<%= @total_price %>
-      data-currency="jpy"
-      data-name="Stripe.com"
-      data-description="Example charge"
-      data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
-      data-locale="auto">
-    </script>
+        <%= f.hidden_field :product_ids, :value => @cart_items.ids.join(",") %>
+        
+        <div class="text-right">
+        <script
+          src="https://checkout.stripe.com/checkout.js"
+          class="stripe-button"
+          data-key=<%= ENV['STRIPE_API_KEY'] %>
+          data-amount=<%= @total_price %>
+          data-currency="jpy"
+          data-name="Stripe.com"
+          data-label="支払い画面へ" 
+          data-description="Example charge"
+          data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+          data-locale="auto">
+        </script>
+        </div>
+      <% end %>
+    </div>
   <% end %>
 </div>
