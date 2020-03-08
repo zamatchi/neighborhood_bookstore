@@ -4,8 +4,6 @@
 
 * Ruby version 2.5
 
-* Rails version 5.2
-
 * Dockerを用いたRails環境構築
 
 * Deviseを用いたログイン機能
