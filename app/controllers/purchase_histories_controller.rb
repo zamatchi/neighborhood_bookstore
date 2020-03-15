@@ -14,6 +14,37 @@ class PurchaseHistoriesController < ApplicationController
     end
   end
 
+  def range
+    if current_user.admin?
+      if Date.valid_date?(params["start_date(1i)"]&.to_i, params["start_date(2i)"]&.to_i, params["start_date(3i)"]&.to_i) \
+        && Date.valid_date?(params["end_date(1i)"]&.to_i, params["end_date(2i)"]&.to_i, params["end_date(3i)"]&.to_i)
+      
+        start_date = Date.new(params["start_date(1i)"]&.to_i, params["start_date(2i)"]&.to_i, params["start_date(3i)"]&.to_i)
+        end_date = Date.new(params["end_date(1i)"]&.to_i, params["end_date(2i)"]&.to_i, params["end_date(3i)"]&.to_i)
+
+        unless start_date <= end_date
+          flash[:success] = "終了日を開始日より後の日付にしてください。"
+          @purchase_histories = PurchaseHistoryProduct.all.page(params[:page]).per(25).order('updated_at DESC')
+        else
+          range = start_date.beginning_of_day..end_date.end_of_day
+          @purchase_histories = PurchaseHistoryProduct.where(updated_at: range).page(params[:page]).per(25).order('updated_at DESC')
+        end
+
+        respond_to do |format|
+          format.html
+          format.csv do
+            histories_csv
+          end
+        end
+      else
+        @purchase_histories = PurchaseHistoryProduct.all.page(params[:page]).per(25).order('updated_at DESC')
+        flash[:success] = "存在する日付を選択して下さい。"
+      end
+    else
+      @purchase_histories = current_user.purchase_history.purchase_history_products.page(params[:page]).per(25)
+    end
+  end
+
   private
 
   def exist_purchase_history
