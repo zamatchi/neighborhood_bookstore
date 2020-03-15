@@ -1,14 +1,12 @@
 <div class="col-md-8 offset-md-2">
   <h2 class="text-center">注文履歴</h2>
 
-
-  <input id="date-form" type="text" placeholder="日付を設定" readonly>
-  ​
-  <script>
-      // カレンダーの表示
-      flatpickr('#date-form')
-  </script>
-  
+  <%= form_with(model: @product, local: true) do |f| %>
+    <div class="form-group">
+      <%= f.label :name, "日付指定" %>
+      <%= f.date_select :date, use_month_numbers: true, class:'form-control' %>
+    </div>
+  <% end %>
 
   <table class= "table">
     <tr>

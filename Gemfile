@@ -85,4 +85,3 @@ end
 
 gem 'dotenv-rails'
 gem 'kaminari'
-gem 'flatpickr'
