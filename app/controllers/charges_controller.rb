@@ -3,6 +3,7 @@ class ChargesController < ApplicationController
   def create
     price_array = []
     purchase_all_info = []
+    
     cart_item_ids = params[:product_ids].split(",").map(&:to_i)
     cart_prices = cart_item_ids.map do |cart_item_id|
       product = current_user.cart.products.find(cart_item_id)
@@ -38,7 +39,11 @@ class ChargesController < ApplicationController
 
       purchase_all_info.each do |purchase_info|        
         purchase_history = current_user.purchase_history.purchase_history_products.create!(user_name: current_user.name, product_id: purchase_info[0], product_name: purchase_info[1], quantity: purchase_info[2], price: purchase_info[3], delivery_user: params[:delivery_user])
+        product = Product.find(purchase_info[0])
+        product.num -= purchase_info[2]
+        product.save
       end
+
 
       # カートの削除
       cart_products = current_user.cart.cart_products
