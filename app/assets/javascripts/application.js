@@ -17,3 +17,5 @@
 //= require jquery3
 //= require popper
 //= require bootstrap-sprockets
+//= require flatpickr
+//= require flatpickr/l10n/ja

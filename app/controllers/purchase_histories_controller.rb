@@ -2,7 +2,7 @@ class PurchaseHistoriesController < ApplicationController
   before_action :exist_purchase_history
   def index
     if current_user.admin?
-      @purchase_histories = PurchaseHistoryProduct.all
+      @purchase_histories = PurchaseHistoryProduct.all.page(params[:page]).per(25).order('updated_at DESC')
       respond_to do |format|
         format.html
         format.csv do
@@ -10,7 +10,7 @@ class PurchaseHistoriesController < ApplicationController
         end
       end
     else
-      @purchase_histories = current_user.purchase_history.purchase_history_products
+      @purchase_histories = current_user.purchase_history.purchase_history_products.page(params[:page]).per(25)
     end
   end
 
@@ -33,11 +33,10 @@ class PurchaseHistoriesController < ApplicationController
     hour = current_time[8..9]
     minute = current_time[10..11]
 
-
     csv_date = CSV.generate do |csv|
       csv << ["#{year}年#{month}月#{day}日#{hour}時#{minute}分_注文履歴"]
       csv << []
-      csv_column_names = ["注文者", "商品名", "購入数", "金額", "	配達者ID"]
+      csv_column_names = ["注文者", "商品名", "購入数", "金額", "	配達者ID", "購入日"]
       csv << csv_column_names
       @purchase_histories.each do |info|
         csv_column_values = [
@@ -45,7 +44,8 @@ class PurchaseHistoriesController < ApplicationController
           info.product_name,
           info.quantity,
           info.price,
-          info.delivery_user.to_s
+          info.delivery_user.to_s,
+          info.updated_at.strftime('%Y/%m/%d %H:%M')
         ]
         csv << csv_column_values
       end

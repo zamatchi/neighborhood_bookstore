@@ -1,6 +1,15 @@
 <div class="col-md-8 offset-md-2">
   <h2 class="text-center">注文履歴</h2>
 
+
+  <input id="date-form" type="text" placeholder="日付を設定" readonly>
+  ​
+  <script>
+      // カレンダーの表示
+      flatpickr('#date-form')
+  </script>
+  
+
   <table class= "table">
     <tr>
       <% if current_user.admin? %>
@@ -10,6 +19,7 @@
       <th>購入数</th>
       <th>金額</th>
       <th>配達者ID</th>
+      <th>購入日</th>
     </tr>
 
     <% @purchase_histories.each do |purchase_history| %>
@@ -20,13 +30,17 @@
         <td><%= purchase_history.product_name %></td>
         <td><%= purchase_history.quantity %></td>
         <td>¥<%= purchase_history.price %></td>
-        <td><%= purchase_history.delivery_user %></td>
+        <td><%= purchase_history.delivery_user %></td>  
+        <td><%= purchase_history.updated_at.strftime('%Y/%m/%d %H:%M') %></td>
+
       </tr>
     <% end %>
   </table>
 
+  <%= paginate @purchase_histories %>
+
   <% if current_user.admin? %>
-    <div class="text-right">  
+    <div class="text-right">
       <%= link_to "CSV出力", purchase_history_path(format: :csv), class: "btn btn-success mt-3" %>
     </div>
   <% end %>

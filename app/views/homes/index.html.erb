@@ -3,6 +3,29 @@
     <%= image_tag "bookstore.jpg", alt: "本の画像です。", id: "top_img" %>
   </div>
 
+  <div>
+    <%= form_with(local: true, method: :get) do |f| %>
+      <label for="author">著者</label>
+      <div class="input-group mb-3">
+        <%= f.text_field :author, class: "form-control", id: "author", value: @initial_value.author %>
+        <div class="input-group-append">
+          <%= f.submit "検索", class: "btn btn-info" %>
+        </div>
+      </div>
+    <% end %>
+
+
+    <%= form_with(local: true, method: :get) do |f| %>
+      <label for="name">タイトル</label>
+      <div class="input-group mb-3">
+        <%= f.text_field :name, class: "form-control", id: "name", value: @initial_value.name %>
+        <div class="input-group-append">
+          <%= f.submit "検索", class: "btn btn-info" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
   <div class="container pt-5">
     <div class="row">
       <% @products.each do |product| %>
