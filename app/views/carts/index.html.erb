@@ -35,7 +35,7 @@
         <script
           src="https://checkout.stripe.com/checkout.js"
           class="stripe-button"
-          data-key=<%= ENV['STRIPE_API_KEY'] %>
+          data-key=<%= ENV['STRIPE_TEST_API_KEY'] %>
           data-amount=<%= @total_price %>
           data-currency="jpy"
           data-name="Stripe.com"

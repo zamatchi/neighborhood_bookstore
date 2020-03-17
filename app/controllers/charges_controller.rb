@@ -19,7 +19,14 @@ class ChargesController < ApplicationController
 
     tatal_price = price_array.sum
     
-    Stripe.api_key = ENV['STRIPE_SECRET_KEY']
+    if Rails.env.production?
+      Stripe.api_key = ENV['STRIPE_TEST_SECRET_KEY']
+    end
+
+    if Rails.env.development?
+      Stripe.api_key = ENV['STRIPE_SECRET_KEY']
+    end
+
     # トークンはCheckoutまたはElementsを使用して作成されます！
     # フォームから送信された支払いトークンIDを取得します
     token = params[:stripeToken]
