@@ -48,7 +48,7 @@ PurchaseHistoryProduct.create!(
   price: 500,
   product_id: 5,
   purchase_history_id: 2,
-  delivery_user: "guest"
+  delivery_user: "guest"
 )
 
 
