@@ -1,5 +1,7 @@
 # アプリの概要
 
+## 技術的ポイント
+
 * Ruby version 2.5
 
 * Dockerを用いたRails環境構築
