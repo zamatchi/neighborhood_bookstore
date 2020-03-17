@@ -31,7 +31,15 @@
         <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
           <%= f.hidden_field :idname, :value => "guest" %>
           <%= f.hidden_field :password, :value => 123123 %>
-          <%= f.submit "採用担当者様 専用ログイン", class: "btn btn-info" %>
+          <%= f.submit "採用担当者様 専用ログイン(管理者ページ)", class: "btn btn-success" %>
+        <% end %>
+      </section>
+
+      <section class="pb-4 ">
+        <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+          <%= f.hidden_field :idname, :value => "book_store" %>
+          <%= f.hidden_field :password, :value => "book321" %>
+          <%= f.submit "採用担当者様 専用ログイン", class: "btn btn-success" %>
         <% end %>
       </section>
     </div>
