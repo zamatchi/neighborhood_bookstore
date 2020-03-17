@@ -35,7 +35,14 @@
         <script
           src="https://checkout.stripe.com/checkout.js"
           class="stripe-button"
-          data-key=<%= ENV['STRIPE_TEST_API_KEY'] %>
+          <% if Rails.env.production? %>
+            data-key=<%= ENV['STRIPE_TEST_API_KEY'] %>
+          <% end %>
+
+          <% if Rails.env.development? %>
+            data-key=<%= ENV['STRIPE_API_KEY'] %>
+          <% end %>
+          
           data-amount=<%= @total_price %>
           data-currency="jpy"
           data-name="Stripe.com"
