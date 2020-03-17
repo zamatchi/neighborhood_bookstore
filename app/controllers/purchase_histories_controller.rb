@@ -48,10 +48,12 @@ class PurchaseHistoriesController < ApplicationController
   private
 
   def exist_purchase_history
-    unless current_user.purchase_history
-      @products = Product.all
-      flash[:success] = "購入履歴はありません"
-      redirect_to root_path
+    unless current_user.admin?
+      unless current_user.purchase_history
+        @products = Product.all
+        flash[:success] = "購入履歴はありません"
+        redirect_to root_path
+      end
     end
   end
 
