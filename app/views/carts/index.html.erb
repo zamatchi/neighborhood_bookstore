@@ -37,9 +37,7 @@
           class="stripe-button"
           <% if Rails.env.production? %>
             data-key=<%= ENV['STRIPE_TEST_API_KEY'] %>
-          <% end %>
-
-          <% if Rails.env.development? %>
+          <% elsif Rails.env.development? %>
             data-key=<%= ENV['STRIPE_API_KEY'] %>
           <% end %>
           

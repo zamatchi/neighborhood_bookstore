@@ -10,7 +10,7 @@ class PurchaseHistoriesController < ApplicationController
         end
       end
     else
-      @purchase_histories = current_user.purchase_history.purchase_history_products.page(params[:page]).per(25)
+      @purchase_histories = current_user.purchase_history.purchase_history_products.page(params[:page]).per(25).order('updated_at DESC')
     end
   end
 
@@ -41,7 +41,7 @@ class PurchaseHistoriesController < ApplicationController
         flash[:success] = "存在する日付を選択して下さい。"
       end
     else
-      @purchase_histories = current_user.purchase_history.purchase_history_products.page(params[:page]).per(25)
+      @purchase_histories = current_user.purchase_history.purchase_history_products.page(params[:page]).per(25).order(updated_at: "DESC")
     end
   end
 

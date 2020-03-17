@@ -21,9 +21,7 @@ class ChargesController < ApplicationController
     
     if Rails.env.production?
       Stripe.api_key = ENV['STRIPE_TEST_SECRET_KEY']
-    end
-
-    if Rails.env.development?
+    elsif Rails.env.development?
       Stripe.api_key = ENV['STRIPE_SECRET_KEY']
     end
 
