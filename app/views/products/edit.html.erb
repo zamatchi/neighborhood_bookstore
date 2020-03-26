@@ -1,34 +1,35 @@
-<h2>編集</h2>
-
-<ul>
-  <%= form_with(model: @product, local: true) do |f| %>
-    <%= render 'layouts/flash_messages' %>
-    <div>
-      <%= f.label :name, "タイトル" %>
-      <%= f.text_field :name, class:'form-control' %>
-    </div>
-    <div>
-      <%= f.label :author, "著者" %>
-      <%= f.text_field :author, class:'form-control' %>
-    </div>
-    <div>
-      <%= f.label :description, "内容" %>
-      <%= f.text_area :description, class:'form-control' %>
-    </div>
-    <div>
-      <%= f.label :price, "価格" %>
-      <%= f.number_field :price, class:'form-control' %>
-    </div>
-    <div>
-      <%= f.label :num, "数量" %>
-      <%= f.number_field :num, class:'form-control' %>
-    </div>
-    <div>
-      <%= f.label :img, "画像" %>
-      <%= f.file_field :img %>
-    </div>
-    <div>
-      <%= f.submit "更新" %>
-    </div>
-  <% end %>
-</ul>
+<div class="col-md-6 offset-md-3">
+  <h2 class="text-center">編集</h2>
+  <ul>
+    <%= form_with(model: @product, local: true) do |f| %>
+      <%= render "layouts/error_messages", model: f.object %>
+      <div>
+        <%= f.label :name, "タイトル" %>
+        <%= f.text_field :name, class:'form-control' %>
+      </div>
+      <div>
+        <%= f.label :author, "著者" %>
+        <%= f.text_field :author, class:'form-control' %>
+      </div>
+      <div>
+        <%= f.label :description, "内容" %>
+        <%= f.text_area :description, class:'form-control' %>
+      </div>
+      <div>
+        <%= f.label :price, "価格" %>
+        <%= f.number_field :price, class:'form-control' %>
+      </div>
+      <div>
+        <%= f.label :num, "数量" %>
+        <%= f.number_field :num, class:'form-control' %>
+      </div>
+      <div>
+        <%= f.label :img, "画像" %>
+        <%= f.file_field :img %>
+      </div>
+      <div class="text-right">
+        <%= f.submit "更新", class: "btn btn-info" %>
+      </div>
+    <% end %>
+  </ul>
+</div>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_29_073754) do
+ActiveRecord::Schema.define(version: 2020_03_08_075152) do
 
   create_table "cart_products", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "quantity"
@@ -56,6 +56,7 @@ ActiveRecord::Schema.define(version: 2020_02_29_073754) do
     t.bigint "purchase_history_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "delivery_user"
     t.index ["product_id"], name: "index_purchase_history_products_on_product_id"
     t.index ["purchase_history_id"], name: "index_purchase_history_products_on_purchase_history_id"
   end
@@ -70,6 +71,7 @@ ActiveRecord::Schema.define(version: 2020_02_29_073754) do
     t.datetime "updated_at", null: false
     t.string "idname", default: "", null: false
     t.string "name", null: false
+    t.boolean "admin", default: false, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["idname"], name: "index_users_on_idname", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

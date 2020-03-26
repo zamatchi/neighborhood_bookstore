@@ -20,3 +20,6 @@ ADD ./Gemfile.lock $APP_ROOT/Gemfile.lock
 # Gemfileのbundle install
 RUN bundle install
 ADD . $APP_ROOT
+
+# Start the main process.
+CMD ["rails", "server", "-b", "0.0.0.0"]

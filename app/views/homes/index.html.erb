@@ -1,24 +1,60 @@
-<%= image_tag "book.jpg", alt: "本の画像です。", size: '1000x400' %>
+<div class="col-md-10 offset-md-1">
+  <div class="text-center">
+    <%= image_tag "bookstore.jpg", alt: "本の画像です。", id: "top_img" %>
+  </div>
 
-<section>
-  <% @products.each do |product| %>
-    <div class="d-inline-block bg-gray m-1" >
-      <div class="p-2">
-        <% if product.img? %>
-          <%= image_tag product.img.url, alt: "書籍の画像です。", :size =>'300x180' %>
-        <% else %>
-          <%= image_tag "no-img.png", alt: "画像が登録されていません。", :size =>'300x180' %>
-        <% end %>
+  <div>
+    <%= form_with(local: true, method: :get) do |f| %>
+      <label for="author">著者</label>
+      <div class="input-group mb-3">
+        <%= f.text_field :author, class: "form-control", id: "author", value: @initial_value.author %>
+        <div class="input-group-append">
+          <%= f.submit "検索", class: "btn btn-info" %>
+        </div>
       </div>
-      <div>タイトル: <%= link_to product.name, product_path(product) %></div>
-      <div>著者: <%= product.author %></div>
-    </div>
-  <% end %>
-</section>
+    <% end %>
 
+
+    <%= form_with(local: true, method: :get) do |f| %>
+      <label for="name">タイトル</label>
+      <div class="input-group mb-3">
+        <%= f.text_field :name, class: "form-control", id: "name", value: @initial_value.name %>
+        <div class="input-group-append">
+          <%= f.submit "検索", class: "btn btn-info" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="container pt-5">
+    <div class="row">
+      <% @products.each do |product| %>
+        <div class="col-md-4">
+          <div class="d-inline-block m-1" >
+            <div class="p-2">
+              <% if product.img? %>
+                <%= image_tag product.img.url, alt: "書籍の画像です。", :size =>'300x180', class: "product_img" %>
+              <% else %>
+                <%= image_tag "no-img.png", alt: "画像が登録されていません。", :size =>'300x180', class: "product_img" %>
+              <% end %>
+            </div>
+            <div>タイトル: <%= link_to product.name, product_path(product) %></div>
+            <div>著者: <%= product.author %></div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
 
 <style>
-.bg-gray{
-  background-color: #ededed80;
+#top_img{
+  /* width: 100%; */
+  max-width: 90%;
+}
+
+.product_img{
+  width: 100%;
+  max-width: 300px;
 }
 </style>

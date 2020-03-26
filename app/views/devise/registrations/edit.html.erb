@@ -1,48 +1,20 @@
-<h2>アカウント編集 <%= resource_name.to_s.humanize %></h2>
+<% provide(:button, '更新') %>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
+<div class="col-md-6 offset-md-3">
+  <div class="border">
+    <h2 class="text-center mt-3">ユーザー編集</h2>
+    <div class="text-center">
+      <p class="py-4 text-muted">(※変更しない項目は空白にしてください)</p>
+      <div class="col-md-8 offset-md-2">
+        <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+          <%= render "devise/shared/error_messages", resource: resource %>
+          <%= render 'form_user', f: f %>
+        <% end %>
 
-  <div class="field">
-    <%= f.label :name, "お名前" %><br />
-    <%= f.text_field :name, autofocus: true, autocomplete: "name" %>
+        <div class="pb-3 text-right">
+          <%= button_to "アカウントを削除する", registration_path(resource_name), data: { confirm: "削除してもよろしいですか？" }, method: :delete, class: "btn btn-delete" %>
+        </div>
+      </div>
+    </div>
   </div>
-
-  <div class="field">
-    <%= f.label :email, "メールアドレス" %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
-
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :idname, "ユーザーID" %><br />
-    <%= f.text_field :idname, autofocus: true, autocomplete: "idname" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password %> <i>(変更しない場合は空白にしてください)</i><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-    <% if @minimum_password_length %>
-      <br />
-      <em><%= @minimum_password_length %> 文字以上</em>
-    <% end %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation, "パスワード"  %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "更新", class: "btn, btn-info" %>
-  </div>
-<% end %>
-
-<h3>アカウント削除</h3>
-
-<p><%= button_to "アカウントを削除する", registration_path(resource_name), data: { confirm: "削除してもよろしいですか？" }, method: :delete %></p>
-
-<%= link_to "Back", :back %>
+</div>

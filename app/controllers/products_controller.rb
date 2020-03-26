@@ -1,5 +1,6 @@
 class ProductsController < ApplicationController
   before_action :authenticate_user!
+  before_action :confirm_admin, only: [:new, :create, :edit, :update, :destroy]
   
   def show
     @product = Product.find(params[:id])
@@ -56,5 +57,11 @@ class ProductsController < ApplicationController
 
   def product_params
     params.require(:product).permit(:name, :author, :description, :price, :num, :img)
+  end
+
+  def confirm_admin
+    unless current_user.admin?
+      redirect_to root_path
+    end
   end
 end
